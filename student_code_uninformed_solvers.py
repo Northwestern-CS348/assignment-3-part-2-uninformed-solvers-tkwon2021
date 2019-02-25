@@ -23,7 +23,7 @@ class SolverDFS(UninformedSolver):
 
         # This checks if the very first game state is a win condition; not 
         # necessary otherwise.
-        
+    
 
         self.visited[self.currentState] = True
         
@@ -94,17 +94,16 @@ class SolverBFS(UninformedSolver):
         # Getting all list of movables (aka children)
         movables = self.gm.getMovables()
             
-        
-        if not self.currentState.children:
-            # Otherwise, traverse through the list and set the parent and child states
-            if movables:
-                for child in movables:
-                    self.gm.makeMove(child)
-                    childGameState = GameState(self.gm.getGameState(), self.currentState.depth+1, child)
-                    childGameState.parent = self.currentState
-                    self.orderedStates.append(childGameState)
-                    self.currentState.children.append(childGameState)
-                    self.gm.reverseMove(child)
+       
+        # Otherwise, traverse through the list and set the parent and child states
+        if movables:
+            for child in movables:
+                self.gm.makeMove(child)
+                childGameState = GameState(self.gm.getGameState(), self.currentState.depth+1, child)
+                childGameState.parent = self.currentState
+                self.orderedStates.append(childGameState)
+                self.currentState.children.append(childGameState)
+                self.gm.reverseMove(child)
 
         # Make the first node the current node
         for x in range(self.currentState.depth):
